@@ -31,6 +31,7 @@ LiquidCrystal lcd(RS, E, D4, D5, D6, D7);
 void setup() {
   lcd.begin(16, 2);
   lcd.setCursor(8,0);
+  lcd.println("LOL");
   Serial.begin(9600);
   pinMode(STRETCH, INPUT);
   pinMode(LEFT, INPUT);
@@ -44,9 +45,6 @@ void loop() {
   if(millis() - timer > 50 and output.length() != 0){
     Serial.println(output);
     output = "";
-    lcd.clear();
-    lcd.print(Serial.read());
-    lcd.setCursor(8, 0);
     timer = millis();
   }
   if(digitalRead(STRETCH) and ! stretch_pressed){
@@ -79,4 +77,13 @@ void loop() {
   if(! digitalRead(COLLAPSE)) collapse_pressed = false;
   if(! digitalRead(EXIT)) exit_pressed = false;
   if(! digitalRead(PICK_DROP)) pick_drop_pressed = false;
+}
+
+void serialEvent(){
+  while(Serial.available()){
+    lcd.clear();
+    lcd.setCursor(8, 0);
+    String adrian_es_gei = Serial.readString();
+    lcd.print(adrian_es_gei);
+  }
 }

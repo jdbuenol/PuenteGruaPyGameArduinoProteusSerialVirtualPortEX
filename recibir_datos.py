@@ -103,7 +103,7 @@ if __name__ == '__main__':
     generate_boxes(matrix)
     print_matrix(matrix, grabbing)
     while 1:
-        print(crane_pos)
+        arduino.write(bytes('(' + str(crane_pos[0]) + ',' + str(crane_pos[1]) + ')', 'utf-8'))
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
         print_matrix(matrix, grabbing)
